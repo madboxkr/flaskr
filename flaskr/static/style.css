@@ -112,10 +112,21 @@ h2 {
   border-radius: var(--border-radius);
   border-left: 3px solid var(--primary-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: relative;
 }
 
 .entries li h2 {
   margin-bottom: 0.3em;
+}
+
+.remove-entry {
+  margin-top: 1em;
+}
+
+.remove-entry input[type="submit"] {
+  background: var(--accent-color);
+  padding: 0.5em 1em;
+  font-size: 0.9em;
 }
 
 .add-entry {
