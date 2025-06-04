@@ -113,7 +113,17 @@ def remove_entry(entry_id):
     if not session.get('logged_in'):
         abort(401)
     db = get_db()
-    db.execute('DELETE FROM entries WHERE id = ?', [entry_id])
+if not session.get('logged_in'):
+        abort(401)
+    db = get_db()
+    try:
+        db.execute('DELETE FROM entries WHERE id = ?', [entry_id])
+        db.commit()
+        flash('Entry was successfully removed')
+    except sqlite3.Error as e:
+        db.rollback()
+        flash(f'Error removing entry: {str(e)}')
+    return redirect(url_for('show_entries'))
     db.commit()
     flash('Entry was successfully removed')
     return redirect(url_for('show_entries'))
