@@ -69,7 +69,18 @@ def show_entries():
         app.logger.error(f"Database error: {e}")
         entries = []
     return render_template('show_entries.html', entries=entries)
-    cur = db.execute('SELECT id, title, text FROM entries ORDER BY id DESC')
+g.sqlite_db.close()
+
+
+# SQL query constant
+ENTRIES_SELECT_QUERY = 'SELECT id, title, text FROM entries ORDER BY id DESC'
+
+@app.route('/')
+def show_entries():
+    db = get_db()
+    cur = db.execute(ENTRIES_SELECT_QUERY)
+    entries = cur.fetchall()
+    return render_template('show_entries.html', entries=entries)
     entries = cur.fetchall()
     return render_template('show_entries.html', entries=entries)
 
