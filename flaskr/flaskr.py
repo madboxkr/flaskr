@@ -109,7 +109,11 @@ def logout():
 
 
 @app.route('/remove/<int:entry_id>', methods=['POST'])
-def remove_entry(entry_id):
+@app.route('/remove/<int:entry_id>', methods=['POST'])
+def delete_entry(entry_id):
+    if not session.get('logged_in'):
+        abort(401)
+    db = get_db()
     if not session.get('logged_in'):
         abort(401)
     db = get_db()
